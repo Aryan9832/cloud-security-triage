@@ -77,7 +77,7 @@ def write_reports(store, output, now=None):
         lines.append("| " + " | ".join(md(v) for v in (
             row["id"], priorities[row["id"]]["priority"], row["severity"], row["title"], row["owner"], effective_state(row, now))) + " |")
     if not queue:
-        lines.append("| — | — | — | No actionable findings in the local inventory | — | — |")
+        lines.append("| N/A | N/A | N/A | No actionable findings in the local inventory | N/A | N/A |")
     lines.extend(["", "## Owner workload", "", "| Owner | Actionable | P1 |", "| --- | --- | --- |"])
     for owner, count in sorted(Counter(row["owner"] for row in queue).items()):
         p1 = sum(row["owner"] == owner and priorities[row["id"]]["priority"] == "P1" for row in queue)
@@ -110,8 +110,8 @@ def write_reports(store, output, now=None):
             "- Effective state: " + effective_state(row, now),
             "- Local decision: " + row["decision"],
             "- Reason: " + md(row["reason"] or "Not yet triaged"),
-            "- Analyst: " + md(row["actor"] or "—"),
-            "- Exception expiry: " + (row["expires"] or "—"), "",
+            "- Analyst: " + md(row["actor"] or "N/A"),
+            "- Exception expiry: " + (row["expires"] or "N/A"), "",
         ])
     markdown_path = output / "report.md"
     markdown_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
