@@ -1,0 +1,36 @@
+{
+  "Findings": [
+    {
+      "SchemaVersion": "2018-10-08",
+      "Id": "demo/s3-public-access",
+      "ProductArn": "arn:aws:securityhub:us-west-2::product/aws/securityhub",
+      "GeneratorId": "demo/S3.2",
+      "AwsAccountId": "111122223333",
+      "Types": ["Software and Configuration Checks"],
+      "CreatedAt": "2026-10-08T08:00:00Z",
+      "UpdatedAt": "2026-10-10T08:00:00Z",
+      "Severity": {"Label": "HIGH"},
+      "Title": "Public read access detected on a customer-export bucket",
+      "Description": "Synthetic second-day result: public policy removed and source finding resolved.",
+      "Resources": [{"Type": "AwsS3Bucket", "Id": "arn:aws:s3:::demo-customer-exports", "Region": "us-west-2", "Tags": {"Owner": "data-platform", "Environment": "lab"}}],
+      "RecordState": "ACTIVE",
+      "Workflow": {"Status": "RESOLVED"}
+    },
+    {
+      "SchemaVersion": "2018-10-08",
+      "Id": "demo/stale-key",
+      "ProductArn": "arn:aws:securityhub:us-west-2::product/aws/securityhub",
+      "GeneratorId": "demo/IAM.3",
+      "AwsAccountId": "111122223333",
+      "Types": ["Software and Configuration Checks"],
+      "CreatedAt": "2026-10-08T08:00:00Z",
+      "UpdatedAt": "2026-10-10T08:00:00Z",
+      "Severity": {"Label": "HIGH"},
+      "Title": "Service account access key exceeds rotation policy",
+      "Description": "Synthetic changed finding: analyst must revisit the prior exception.",
+      "Resources": [{"Type": "AwsIamUser", "Id": "arn:aws:iam::111122223333:user/demo-exporter", "Region": "us-west-2", "Tags": {"Owner": "identity-platform", "Environment": "production"}}],
+      "RecordState": "ACTIVE",
+      "Workflow": {"Status": "NEW"}
+    }
+  ]
+}

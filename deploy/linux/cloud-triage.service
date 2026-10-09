@@ -1,0 +1,31 @@
+[Unit]
+Description=Cloud security findings collection and triage report
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=cloud-triage
+Group=cloud-triage
+WorkingDirectory=/opt/cloud-triage
+ExecStart=/opt/cloud-triage/venv/bin/python -m triage.worker --config /etc/cloud-triage/config.json
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=PYTHONUNBUFFERED=1
+StateDirectory=cloud-triage
+StateDirectoryMode=0700
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+TimeoutStartSec=10min
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=cloud-triage

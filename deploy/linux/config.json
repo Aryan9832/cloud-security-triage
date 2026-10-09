@@ -1,0 +1,6 @@
+{
+  "mode": "fixture",
+  "state_dir": "/var/lib/cloud-triage",
+  "fixture_path": "/opt/cloud-triage/examples/day1.json",
+  "owners_path": "/etc/cloud-triage/owners.json"
+}

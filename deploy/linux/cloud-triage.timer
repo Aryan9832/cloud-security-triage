@@ -1,0 +1,12 @@
+[Unit]
+Description=Daily cloud security findings report
+
+[Timer]
+# Explicit UTC avoids dependence on the host's local timezone.
+OnCalendar=*-*-* 14:00:00 UTC
+RandomizedDelaySec=5min
+Persistent=true
+Unit=cloud-triage.service
+
+[Install]
+WantedBy=timers.target

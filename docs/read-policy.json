@@ -1,0 +1,11 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ReadSecurityHubFindings",
+      "Effect": "Allow",
+      "Action": "securityhub:GetFindings",
+      "Resource": "*"
+    }
+  ]
+}

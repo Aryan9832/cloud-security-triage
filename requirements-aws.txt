@@ -1,0 +1,2 @@
+# Only needed for live AWS mode. Core demo and tests use the standard library.
+boto3>=1.34,<2

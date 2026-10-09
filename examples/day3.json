@@ -1,0 +1,52 @@
+{
+  "Findings": [
+    {
+      "SchemaVersion": "2018-10-08",
+      "Id": "demo/prod-postgresql-ingress",
+      "ProductArn": "arn:aws:securityhub:us-west-2::product/aws/securityhub",
+      "GeneratorId": "demo/network-postgresql",
+      "AwsAccountId": "111122223333",
+      "Types": ["Software and Configuration Checks"],
+      "CreatedAt": "2026-10-11T08:00:00Z",
+      "UpdatedAt": "2026-10-11T08:00:00Z",
+      "Severity": {"Label": "HIGH"},
+      "Title": "Production PostgreSQL security group permits public ingress",
+      "Description": "Synthetic source evidence: TCP/5432 rule permits 0.0.0.0/0. Tags are lab-supplied context; the triage tool does not probe the resource.",
+      "Resources": [{"Type": "AwsEc2SecurityGroup", "Id": "arn:aws:ec2:us-west-2:111122223333:security-group/sg-demo-postgresql", "Region": "us-west-2", "Tags": {"Owner": "payments-platform", "Environment": "production", "InternetExposed": "true"}}],
+      "RecordState": "ACTIVE",
+      "Workflow": {"Status": "NEW"}
+    },
+    {
+      "SchemaVersion": "2018-10-08",
+      "Id": "demo/dev-admin-ingress",
+      "ProductArn": "arn:aws:securityhub:us-west-2::product/aws/securityhub",
+      "GeneratorId": "demo/network-admin",
+      "AwsAccountId": "111122223333",
+      "Types": ["Software and Configuration Checks"],
+      "CreatedAt": "2026-10-11T08:00:00Z",
+      "UpdatedAt": "2026-10-11T08:00:00Z",
+      "Severity": {"Label": "HIGH"},
+      "Title": "Development admin endpoint permits public ingress",
+      "Description": "Synthetic development resource at the same source severity as the production PostgreSQL finding. Compare their explained local priorities.",
+      "Resources": [{"Type": "AwsEc2SecurityGroup", "Id": "arn:aws:ec2:us-west-2:111122223333:security-group/sg-demo-admin", "Region": "us-west-2", "Tags": {"Owner": "developer-infrastructure", "Environment": "development", "InternetExposed": "true"}}],
+      "RecordState": "ACTIVE",
+      "Workflow": {"Status": "NEW"}
+    },
+    {
+      "SchemaVersion": "2018-10-08",
+      "Id": "demo/s3-public-access",
+      "ProductArn": "arn:aws:securityhub:us-west-2::product/aws/securityhub",
+      "GeneratorId": "demo/S3.2",
+      "AwsAccountId": "111122223333",
+      "Types": ["Software and Configuration Checks"],
+      "CreatedAt": "2026-10-08T08:00:00Z",
+      "UpdatedAt": "2026-10-11T08:00:00Z",
+      "Severity": {"Label": "HIGH"},
+      "Title": "Public read access detected on a customer-export bucket",
+      "Description": "Synthetic recurrence: a deployment restored the public policy; source finding reopened. Triage must preserve the prior remediation decision.",
+      "Resources": [{"Type": "AwsS3Bucket", "Id": "arn:aws:s3:::demo-customer-exports", "Region": "us-west-2", "Tags": {"Owner": "data-platform", "Environment": "production", "InternetExposed": "true"}}],
+      "RecordState": "ACTIVE",
+      "Workflow": {"Status": "NEW"}
+    }
+  ]
+}

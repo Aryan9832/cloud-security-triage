@@ -1,0 +1,6 @@
+{
+  "mode": "fixture",
+  "state_dir": "../reports/linux-local",
+  "fixture_path": "day1.json",
+  "owners_path": "owners.json"
+}

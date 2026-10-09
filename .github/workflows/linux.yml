@@ -1,0 +1,33 @@
+name: Linux verification
+
+on: [push, pull_request, workflow_dispatch]
+
+permissions:
+  contents: read
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Python virtual-environment support
+        run: sudo apt-get update && sudo apt-get install -y python3-venv
+      - name: Test Python behavior and deployment staging
+        run: python3 -m unittest discover -s tests -v
+      - name: Install the fixture service
+        run: sudo bash scripts/install-linux.sh --install
+      - name: Verify systemd units and calendar
+        run: |
+          sudo systemd-analyze verify /etc/systemd/system/cloud-triage.service /etc/systemd/system/cloud-triage.timer
+          systemd-analyze calendar '*-*-* 14:00:00 UTC'
+      - name: Run the real service and verify health
+        run: |
+          sudo systemctl start cloud-triage.service
+          sudo systemctl show cloud-triage.service -p Result -p ExecMainStatus
+          cd /opt/cloud-triage
+          sudo -u cloud-triage /opt/cloud-triage/venv/bin/python -m triage.worker --config /etc/cloud-triage/config.json --health
+          sudo test -f /var/lib/cloud-triage/fixture/reports/latest/report.md
+          sudo test -f /var/lib/cloud-triage/fixture/reports/latest/findings.csv
+      - name: Show service logs
+        if: always()
+        run: sudo journalctl -u cloud-triage.service --no-pager -n 50
